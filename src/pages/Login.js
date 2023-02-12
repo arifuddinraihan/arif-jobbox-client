@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 
 import { useNavigate } from "react-router-dom";
-import { userSignIn } from "../app/features/auth/authSlice";
+import { googleLogin, userSignIn } from "../app/features/auth/authSlice";
 import loginImage from "../assets/login.svg";
 const Login = () => {
   const { register, handleSubmit, reset } = useForm();
@@ -14,6 +14,10 @@ const Login = () => {
     console.log(data);
     dispatch(userSignIn({ email: data.email, password: data.password }));
     reset();
+  };
+
+  const handleGoogleLogin = () => {
+    dispatch(googleLogin());
   };
 
   useEffect(() => {
@@ -67,6 +71,13 @@ const Login = () => {
                   </span>
                 </p>
               </div>
+              <button
+                onClick={handleGoogleLogin}
+                type='button'
+                className='font-bold text-white py-3 rounded-full bg-primary w-full'
+              >
+                Login with Google
+              </button>
             </div>
           </form>
         </div>

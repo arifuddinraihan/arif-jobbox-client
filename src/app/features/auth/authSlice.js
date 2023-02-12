@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"
+import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth"
 import auth from "../../../firebase/firebase.config";
 
 const initialState = {
@@ -10,12 +10,17 @@ const initialState = {
     error: "",
 };
 
-export const createUser = createAsyncThunk("auth/createUser", async ({ email, password }, thunkAPI) => {
+export const createUser = createAsyncThunk("auth/createUser", async ({ email, password }) => {
     const data = await createUserWithEmailAndPassword(auth, email, password);
     return data.user.email;
 });
-export const userSignIn = createAsyncThunk("auth/userSignIn", async ({ email, password }, thunkAPI) => {
+export const userSignIn = createAsyncThunk("auth/userSignIn", async ({ email, password }) => {
     const data = await signInWithEmailAndPassword(auth, email, password);
+    return data.user.email;
+});
+export const googleLogin = createAsyncThunk("auth/googleLogin", async () => {
+    const googleProvider = new GoogleAuthProvider();
+    const data = await signInWithPopup(auth, googleProvider);
     return data.user.email;
 });
 
@@ -26,6 +31,10 @@ const authSlice = createSlice({
         logout: (state) => {
             state.email = ""
         },
+        setUser: (state, { payload }) => {
+            state.email = payload;
+            state.isLoading = false;
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -62,10 +71,27 @@ const authSlice = createSlice({
                 state.email = "";
                 state.isError = true;
                 state.error = action.error.message;
+            })
+            .addCase(googleLogin.pending, (state) => {
+                state.isLoading = true;
+                state.isError = false;
+                state.error = "";
+            })
+            .addCase(googleLogin.fulfilled, (state, { payload }) => {
+                state.isLoading = false;
+                state.email = payload;
+                state.isError = false;
+                state.error = "";
+            })
+            .addCase(googleLogin.rejected, (state, action) => {
+                state.isLoading = false;
+                state.email = "";
+                state.isError = true;
+                state.error = action.error.message;
             });
     }
 });
 
-export const { logout } = authSlice.actions;
+export const { logout, setUser } = authSlice.actions;
 
 export default authSlice.reducer;
