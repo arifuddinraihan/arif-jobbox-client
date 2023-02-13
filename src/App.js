@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { RouterProvider } from "react-router-dom";
-import { setUser } from "./app/features/auth/authSlice";
+import { setUser, toggleLoading } from "./app/features/auth/authSlice";
 import auth from "./firebase/firebase.config";
 import routes from "./routes/routes";
 
@@ -16,8 +16,10 @@ function App() {
       if (user) {
         dispatch(setUser(user.email))
         console.log(user);
+      } else {
+        dispatch(toggleLoading());
       }
-    });
+    }); 
   }, [])
   return (
     <>
