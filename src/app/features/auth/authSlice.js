@@ -3,10 +3,7 @@ import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithEmailAndP
 import auth from "../../../firebase/firebase.config";
 
 const initialState = {
-    user: {
-        email: "",
-        role: "",
-    },
+    user: { email: "", role: "" },
     isLoading: true,
     isError: false,
     error: "",
@@ -18,7 +15,8 @@ export const createUser = createAsyncThunk("auth/createUser", async ({ email, pa
 });
 export const getUser = createAsyncThunk("auth/getUser", async (email) => {
     const res = await fetch(`${process.env.REACT_APP_DEV_URL}/user/${email}`);
-    const data = res.json();
+    const data = await res.json();
+    console.log(data);
     if (data.status) {
         return data;
     }
@@ -39,7 +37,7 @@ const authSlice = createSlice({
     initialState,
     reducers: {
         logout: (state) => {
-            state.user.email = ""
+            state.user.email = "";
         },
         setUser: (state, { payload }) => {
             state.user.email = payload;
