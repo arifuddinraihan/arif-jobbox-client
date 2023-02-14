@@ -1,7 +1,12 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { useGetJobsQuery } from "../app/features/job/jobApi";
 import JobCard from "../components/reusable/JobCard";
 
 const Jobs = () => {
+  const navigate = useNavigate();
+  const { data, isLoading, isError } = useGetJobsQuery();
+  const { position, companyName } = data.data || {};
   return (
     <div className='pt-14'>
       <div className='bg-primary/10 p-5 rounded-2xl'>
