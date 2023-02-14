@@ -17,7 +17,7 @@ const Signup = () => {
     if (isError) {
       toast.error(error)
     }
-  }, [isError , error]);
+  }, [isError, error]);
   useEffect(() => {
     if (!isLoading && email) {
       navigate("/");
@@ -42,6 +42,7 @@ const Signup = () => {
     console.log(data);
     dispatch(createUser({ email: data.email, password: data.password }));
     reset();
+    navigate('/');
   };
   const handleGoogleLogin = () => {
     dispatch(googleLogin());
