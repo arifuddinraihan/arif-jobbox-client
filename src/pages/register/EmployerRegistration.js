@@ -46,7 +46,6 @@ const EmployerRegistration = () => {
   const onSubmit = (data) => {
     console.log(data);
     postUser({ ...data, role: "employer", email: email });
-    navigate('/dashboard')
   };
 
   if (isLoading) {
@@ -84,7 +83,7 @@ const EmployerRegistration = () => {
             <label className='mb-2' htmlFor='email'>
               Email
             </label>
-            <input placeholder={email} type='email' id='email' disabled {...register("email")} />
+            <input placeholder={email} className="cursor-not-allowed" type='email' id='email' disabled {...register("email")} />
           </div>
           <div className='flex flex-col w-full max-w-xs'>
             <h1 className='mb-3'>Gender</h1>

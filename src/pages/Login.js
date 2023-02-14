@@ -15,6 +15,7 @@ const Login = () => {
     console.log(data);
     dispatch(userSignIn({ email: data.email, password: data.password }));
     reset();
+    navigate('/');
   };
 
   const handleGoogleLogin = () => {

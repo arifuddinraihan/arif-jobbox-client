@@ -1,4 +1,5 @@
 import apiSlice from "../api/apiSlice";
+import { getUser } from "./authSlice";
 
 const authApi = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
@@ -8,6 +9,14 @@ const authApi = apiSlice.injectEndpoints({
                 url: "/user",
                 body: data,
             }),
+            async onQueryStrated(data, { dispactch, queryFulfilled }) {
+                try {
+                    const res = await queryFulfilled;
+                    dispactch(getUser(data.email))
+                } catch (error) {
+                    // Nothing
+                }
+            },
         }),
     }),
 });
