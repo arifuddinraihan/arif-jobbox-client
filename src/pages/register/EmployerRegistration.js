@@ -4,10 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { FaChevronLeft } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { useRegisterMutation } from "../../app/features/auth/authApi";
+import Loading from "../../components/reusable/Loading";
 
 const EmployerRegistration = () => {
   const [countries, setCountries] = useState([]);
-  const { email } = useSelector((state) => state.auth);
+  const { user: { email } } = useSelector((state) => state.auth);
   const { handleSubmit, register, control } = useForm();
   const term = useWatch({ control, name: "term" });
   const navigate = useNavigate();
@@ -44,8 +45,13 @@ const EmployerRegistration = () => {
 
   const onSubmit = (data) => {
     console.log(data);
-    postUser({ ...data, role: "employer" });
+    postUser({ ...data, role: "employer", email: email });
+    navigate('/dashboard')
   };
+
+  if (isLoading) {
+    return <Loading />
+  }
 
   return (
     <div className='pt-14'>
