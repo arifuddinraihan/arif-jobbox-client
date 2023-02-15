@@ -44,7 +44,7 @@ const EmployerRegistration = () => {
   }, []);
 
   const onSubmit = (data) => {
-    console.log(data);
+    // console.log(data);
     postUser({ ...data, role: "employer", email: email });
   };
 

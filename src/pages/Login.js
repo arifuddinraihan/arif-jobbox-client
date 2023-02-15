@@ -12,7 +12,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const { isLoading, email, isError, error } = useSelector((state) => state.auth);
   const onSubmit = (data) => {
-    console.log(data);
+    // console.log(data);
     dispatch(userSignIn({ email: data.email, password: data.password }));
     reset();
     navigate('/');
