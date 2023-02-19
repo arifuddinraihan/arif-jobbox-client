@@ -2,17 +2,19 @@ import React from "react";
 
 import meeting from "../assets/meeting.jpg";
 import { BsArrowRightShort, BsArrowReturnRight } from "react-icons/bs";
-import { useJobApplyMutation, useJobByIdQuery } from "../app/features/job/jobApi";
+import { useJobApplyMutation, useJobByIdQuery, useQuestionMutation } from "../app/features/job/jobApi";
 import { useNavigate, useParams } from "react-router-dom";
 import Loading from "../components/reusable/Loading";
 import { useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
+import { useForm } from "react-hook-form";
 const JobDetails = () => {
   const { id } = useParams();
   // console.log(id)
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth)
   const { data, isLoading, isError } = useJobByIdQuery(id, { pollingInterval: 10000 });
+  const { register, handleSubmit, reset } = useForm();
   // console.log(data?.data)
   const {
     companyName,
@@ -31,7 +33,7 @@ const JobDetails = () => {
   } = data?.data || {};
 
   const [applyJob] = useJobApplyMutation();
-  
+
   const handleApply = () => {
     if (user.role === "employer") {
       toast.error("You need a candidate account to apply");
@@ -51,6 +53,20 @@ const JobDetails = () => {
     // console.log(data);
     applyJob(data);
   };
+  
+  const [sendQuestion] = useQuestionMutation();
+  const handleQuestion = (data) => {
+    const queData = {
+      ...data,
+      userId : user._id,
+      email : user.email,
+      jobId : _id,      
+    };
+    sendQuestion(queData)
+    console.log(queData);
+    reset();
+  }
+
 
   if (isLoading) {
     return <Loading />
@@ -115,7 +131,7 @@ const JobDetails = () => {
               General Q&A
             </h1>
             <div className='text-primary my-2'>
-              {/* {queries?.map(({ question, email, reply, id }) => (
+              {queries?.map(({ question, email, reply, id }) => (
                 <div>
                   <small>{email}</small>
                   <p className='text-lg font-medium'>{question}</p>
@@ -135,22 +151,24 @@ const JobDetails = () => {
                     </button>
                   </div>
                 </div>
-              ))} */}
+              ))}
             </div>
-
-            <div className='flex gap-3 my-5'>
-              <input
-                placeholder='Ask a question...'
-                type='text'
-                className='w-full'
-              />
-              <button
-                className='shrink-0 h-14 w-14 bg-primary/10 border border-primary hover:bg-primary rounded-full transition-all  grid place-items-center text-primary hover:text-white'
-                type='button'
-              >
-                <BsArrowRightShort size={30} />
-              </button>
-            </div>
+            <form onSubmit={handleSubmit(handleQuestion)}>
+              <div className='flex gap-3 my-5'>
+                <input
+                  placeholder='Ask a question...'
+                  type='text'
+                  className='w-full'
+                  {...register("question")}
+                />
+                <button
+                  className='shrink-0 h-14 w-14 bg-primary/10 border border-primary hover:bg-primary rounded-full transition-all  grid place-items-center text-primary hover:text-white'
+                  type='submit'
+                >
+                  <BsArrowRightShort size={30} />
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
