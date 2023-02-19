@@ -29,11 +29,12 @@ const Sidebar = () => {
           <h1 className='text-xl'>Dashboard</h1>
         </div>
         {role === "employer" &&
-          employerRoutes.map(({ name, path }) => (
+          employerRoutes.map(({ name, path }, i) => (
             <li>
               <Link
                 className='hover:bg-primary hover:text-white bg-primary/10 transition-all w-full block py-2 px-3 rounded-full'
                 to={path}
+                key={i}
               >
                 {name}
               </Link>
@@ -41,11 +42,12 @@ const Sidebar = () => {
           ))
         }
         {role === "candidate" &&
-          candidatesRoutes.map(({ name, path }) => (
+          candidatesRoutes.map(({ name, path }, i) => (
             <li>
               <Link
                 className='hover:bg-primary hover:text-white bg-primary/10 transition-all w-full block py-2 px-3 rounded-full'
                 to={path}
+                key={i}
               >
                 {name}
               </Link>
