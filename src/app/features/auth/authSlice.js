@@ -19,6 +19,9 @@ export const getUser = createAsyncThunk("auth/getUser", async (email) => {
     // console.log(data);
     // console.log(data);
     // console.log(data);
+    // console.log(data);
+    // console.log(data);
+    // console.log(data);
     if (data.status) {
         return data;
     }
