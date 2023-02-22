@@ -1,11 +1,13 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const JobCard = ({ job }) => {
   const navigate = useNavigate();
-  const { _id, position, companyName, location, employmentType } =
+  console.log(job)
+  const { _id, applicants, position, companyName, location, employmentType } =
     job || {};
-
+  const { pathname } = useLocation()
+  // console.log(pathname)
   return (
     <div
       key={_id}
@@ -24,10 +26,23 @@ const JobCard = ({ job }) => {
         <p>{location}</p>
       </div>
       <div className='flex justify-between items-center mt-5'>
-        <p>{employmentType}</p>
-        <button className='btn' onClick={() => navigate(`/job-details/${_id}`)}>
-          Details
-        </button>
+        <div className="flex flex-col gap-1">
+          <p>{employmentType}</p>
+          {
+            pathname === "/dashboard/posted-Jobs-List" && <p>Applicants : {applicants.length}</p>
+          }
+        </div>
+        <div className="flex gap-5">
+          <button className='btn' onClick={() => navigate(`/job-details/${_id}`)}>
+            Details
+          </button>
+          {
+            pathname === "/dashboard/posted-Jobs-List" &&
+            <button className='btn'>
+              Close Job
+            </button>
+          }
+        </div>
       </div>
     </div>
   );
