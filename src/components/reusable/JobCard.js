@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 const JobCard = ({ job }) => {
   const navigate = useNavigate();
-  console.log(job)
+  // console.log(job)
   const { _id, applicants, position, companyName, location, employmentType } =
     job || {};
   const { pathname } = useLocation()
@@ -29,7 +29,8 @@ const JobCard = ({ job }) => {
         <div className="flex flex-col gap-1">
           <p>{employmentType}</p>
           {
-            pathname === "/dashboard/posted-Jobs-List" && <p>Applicants : {applicants.length}</p>
+            pathname === "/dashboard/posted-Jobs-List" && 
+            <button onClick={() => navigate(`/dashboard/posted-Jobs-List/${_id}`)} className="hover:underline">Applicants : {applicants.length}</button>
           }
         </div>
         <div className="flex gap-5">
