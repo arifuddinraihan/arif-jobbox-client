@@ -5,7 +5,7 @@ import Loading from '../../components/reusable/Loading';
 
 const ApplicantsPerJob = () => {
     const { id } = useParams();
-    const { data, isLoading, isError } = useApplicantsByJobQuery(id, { pollingInterval: 50000 })
+    const { data, isLoading, isError } = useApplicantsByJobQuery(id, { pollingInterval: 10000 })
     const appliedCandidates = data?.data;
     console.log(appliedCandidates);
     if (isLoading) {
@@ -15,7 +15,7 @@ const ApplicantsPerJob = () => {
         <div>
             <h1 className='text-center my-5 text-lg'>Applicants On this Job : {appliedCandidates.length}</h1>
             <div className="overflow-x-auto w-full my-8">
-                <table className="table w-full">
+                <table className="table table-zebra w-full">
                     {/* head */}
                     <thead>
                         <tr>
@@ -37,7 +37,7 @@ const ApplicantsPerJob = () => {
                                     country,
                                     city
                                 }) => (
-                                <tr key={_id} className="text-center">
+                                <tr key={_id} className="text-center border border-spacing-4">
                                     <td className='font-bold'>
                                         {firstName} {" "} {lastName}
                                     </td>
@@ -50,7 +50,7 @@ const ApplicantsPerJob = () => {
                                         <br />
                                         {"Country :"}{" "}{country}
                                         <br />
-                                        
+
                                     </td>
                                     <th>
                                         <button className="btn btn-ghost btn-xs">Instant Chat</button>

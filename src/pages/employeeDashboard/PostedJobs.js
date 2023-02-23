@@ -9,7 +9,7 @@ const PostedJobs = () => {
         user: { companyName },
     } = useSelector((state) => state.auth);
     const { data, isLoading } = useGetPostedJobsQuery(companyName);
-    console.log(data?.data);
+    // console.log(data?.data);
     if (isLoading) {
         return <Loading />;
     }
