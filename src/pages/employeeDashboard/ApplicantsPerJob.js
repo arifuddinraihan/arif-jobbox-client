@@ -5,23 +5,16 @@ import Loading from '../../components/reusable/Loading';
 
 const ApplicantsPerJob = () => {
     const { id } = useParams();
-    // console.log(id)
-    // const { data, isLoading, isError } = useJobByIdQuery(id, { pollingInterval: 30000 })
-    // const applicants  = data?.data?.applicants;
-    // console.log(applicants);
-    // const role = "candidate";
-    const { data } = useApplicantsByJobQuery(id, { pollingInterval: 10000 })
-    console.log(data);
-    // console.log(allData?.data?.email);
-    // const appliedCandidates = applicants.map((user) => allData?.data.filter((applicant) => applicant.email === user.email))
-    // console.log(appliedCandidates);
-    // if (isLoading) {
-    //     return <Loading />
-    // }
+    const { data, isLoading, isError } = useApplicantsByJobQuery(id, { pollingInterval: 50000 })
+    const appliedCandidates = data?.data;
+    console.log(appliedCandidates);
+    if (isLoading) {
+        return <Loading />
+    }
     return (
         <div>
-            {/* <h1 className='text-center my-5 text-lg'>Applicants On this Job : {data?.data?.applicants.length}</h1> */}
-            <div className="overflow-x-auto w-full">
+            <h1 className='text-center my-5 text-lg'>Applicants On this Job : {appliedCandidates.length}</h1>
+            <div className="overflow-x-auto w-full my-8">
                 <table className="table w-full">
                     {/* head */}
                     <thead>
@@ -34,7 +27,7 @@ const ApplicantsPerJob = () => {
                     </thead>
                     <tbody>
                         {/* row 1 */}
-                        {/* {
+                        {
                             appliedCandidates.map((
                                 { _id,
                                     firstName,
@@ -44,21 +37,27 @@ const ApplicantsPerJob = () => {
                                     country,
                                     city
                                 }) => (
-                                <tr key={_id}>
+                                <tr key={_id} className="text-center">
                                     <td className='font-bold'>
                                         {firstName} {" "} {lastName}
                                     </td>
                                     <td>
-                                        Zemlak, Daniel and Leannon
+                                        {"Email :"}{" "}{email}
                                         <br />
-                                        <span className="badge badge-ghost badge-sm">Desktop Support Technician</span>
+                                        {"Gender :"}{" "}{gender}
+                                        <br />
+                                        {"City :"}{" "}{city}
+                                        <br />
+                                        {"Country :"}{" "}{country}
+                                        <br />
+                                        
                                     </td>
                                     <th>
                                         <button className="btn btn-ghost btn-xs">Instant Chat</button>
                                     </th>
                                 </tr>
                             ))
-                        } */}
+                        }
                     </tbody>
                 </table>
             </div>

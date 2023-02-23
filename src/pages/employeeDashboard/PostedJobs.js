@@ -13,10 +13,14 @@ const PostedJobs = () => {
     if (isLoading) {
         return <Loading />;
     }
-    
+
     return (
         <div>
-            <h1 className='text-xl py-5'>Posted jobs</h1>
+            <h1 className='text-xl py-5'>
+                {
+                data?.data.length > 0 ? "Posted jobs" : "No open position is posted under your company."
+                }
+            </h1>
             <div className='grid grid-cols-2 gap-5 pb-5'>
                 {data?.data?.map((job, i) => (
                     <JobCard job={job} key={i} />
