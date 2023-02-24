@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { useApplicantsByJobQuery, useJobByIdQuery } from '../../app/features/job/jobApi';
+import { useApplicantsByJobQuery } from '../../app/features/job/jobApi';
 import Loading from '../../components/reusable/Loading';
 
 const ApplicantsPerJob = () => {

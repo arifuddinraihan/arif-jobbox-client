@@ -27,13 +27,19 @@ const JobCard = ({ job }) => {
       </div>
       <div className='flex justify-between items-center mt-5'>
         <div className="flex flex-col gap-1">
-          <p>{employmentType}</p>
+          <p>Job Type : <br /> {employmentType}</p>
           {
-            pathname === "/dashboard/posted-Jobs-List" && 
+            pathname === "/dashboard/posted-Jobs-List" &&
             <button onClick={() => navigate(`/dashboard/posted-Jobs-List/${_id}`)} className="hover:underline">Applicants : {applicants.length}</button>
           }
         </div>
         <div className="flex gap-5">
+          {
+            pathname === "/dashboard/applied-jobs" &&
+            <button className='btn'>
+              See Chat
+            </button>
+          }
           <button className='btn' onClick={() => navigate(`/job-details/${_id}`)}>
             Details
           </button>
