@@ -26,7 +26,7 @@ const ApplicantsPerJob = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {/* row 1 */}
+                        {/* row */}
                         {
                             appliedCandidates.map((
                                 { _id,
