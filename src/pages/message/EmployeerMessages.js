@@ -7,11 +7,15 @@ import { BsArrowRightShort, BsArrowReturnRight } from "react-icons/bs";
 const EmployeerMessages = () => {
     const { id } = useParams();
     const { data, isLoading, isError } = useChatWithCandidateQuery(id)
-    const [{ firstName, lastName, email }] = data?.data;
-    // console.log(data?.data);
+   
+    console.log(data);
+   
     if (isLoading) {
         return <Loading />
     }
+   
+    const { firstName, lastName, email } = data?.data;
+   
     return (
         <div className='ml-8 my-8'>
             <div className='text-center font-bold sticky z-10 top-4 bg-white'>
