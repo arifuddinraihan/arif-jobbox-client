@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useApplicantsByJobQuery } from '../../app/features/job/jobApi';
 import Loading from '../../components/reusable/Loading';
 
@@ -8,6 +8,7 @@ const ApplicantsPerJob = () => {
     const { data, isLoading, isError } = useApplicantsByJobQuery(id, { pollingInterval: 10000 })
     const appliedCandidates = data?.data;
     console.log(appliedCandidates);
+    const navigate = useNavigate();
     if (isLoading) {
         return <Loading />
     }
@@ -53,7 +54,9 @@ const ApplicantsPerJob = () => {
 
                                     </td>
                                     <th>
-                                        <button className="btn btn-ghost btn-xs">Instant Chat</button>
+                                        <button 
+                                            onClick={() => navigate(`/dashboard/chat/${_id}`)}
+                                        className="btn btn-ghost btn-xs">Instant Chat</button>
                                     </th>
                                 </tr>
                             ))

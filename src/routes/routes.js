@@ -14,6 +14,7 @@ import CandidateDashboard from "../pages/candidateDashboard/CandidateDashboard";
 import AppliedJobs from "../pages/candidateDashboard/AppliedJobs";
 import PostedJobs from "../pages/employeeDashboard/PostedJobs";
 import ApplicantsPerJob from "../pages/employeeDashboard/ApplicantsPerJob";
+import EmployeerMessages from "../pages/message/EmployeerMessages";
 
 const routes = createBrowserRouter([
   {
@@ -85,6 +86,10 @@ const routes = createBrowserRouter([
       {
         path: "employer",
         element: <EmployerDashboard />,
+      },
+      {
+        path: "chat/:id",
+        element: <EmployeerMessages />,
       },
       {
         path: "candidate",
