@@ -7,7 +7,7 @@ const ApplicantsPerJob = () => {
     const { id } = useParams();
     const { data, isLoading, isError } = useApplicantsByJobQuery(id, { pollingInterval: 10000 })
     const appliedCandidates = data?.data;
-    console.log(appliedCandidates);
+    // console.log(appliedCandidates);
     const navigate = useNavigate();
     if (isLoading) {
         return <Loading />

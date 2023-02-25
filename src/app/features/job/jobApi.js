@@ -63,6 +63,11 @@ const jobApi = apiSlice.injectEndpoints({
             }),
             providesTags: ["Job"],
         }),
+        chatWithCandidate: builder.query({
+            query: (id) => ({
+                url: `/chat/${id}`,
+            }),
+        }),
     }),
 });
 
@@ -76,4 +81,5 @@ export const {
     useApplicantsByJobQuery,
     useQuestionMutation,
     useReplyMutation,
+    useChatWithCandidateQuery,
 } = jobApi;

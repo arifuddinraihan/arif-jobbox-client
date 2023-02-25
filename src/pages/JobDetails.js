@@ -66,7 +66,7 @@ const JobDetails = () => {
       jobId: _id,
     };
     sendQuestion(queData)
-    console.log(queData);
+    // console.log(queData);
     reset();
   };
 
