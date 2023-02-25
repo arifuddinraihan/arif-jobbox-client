@@ -7,9 +7,7 @@ import { BsArrowRightShort, BsArrowReturnRight } from "react-icons/bs";
 const EmployeerMessages = () => {
     const { id } = useParams();
     const { data, isLoading, isError } = useChatWithCandidateQuery(id)
-   
-    console.log(data);
-   
+    // console.log(data);
     if (isLoading) {
         return <Loading />
     }
